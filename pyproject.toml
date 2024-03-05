@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "useful-habit-tracker"
+version = "0.1.0"
+description = ""
+authors = ["Roman Kondratiuk <roma.kondratiuk@icloud.com>"]
+readme = "README.md"
+packages = [{include = "useful_habit_tracker"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.3"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
