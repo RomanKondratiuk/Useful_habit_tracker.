@@ -21,7 +21,7 @@ import useful_habits
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('useful_habits.urls', namespace='useful_habits')),
+    path('', include('useful_habits.urls', namespace='useful_habits')),
     path('users/', include('users.urls', namespace='users')),
 
 ]
