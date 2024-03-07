@@ -13,6 +13,7 @@ class Habit(models.Model):
     """ the model for useful habit """
     action = models.CharField(max_length=255, verbose_name='action')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
+    nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
 
     def __str__(self):
         return f"{self.action}"
@@ -34,7 +35,6 @@ class Feeling(models.Model):
     place = models.CharField(max_length=255, verbose_name='place of action')
     action_time = models.TimeField(verbose_name='time of action', default=timezone.now())
     action = models.CharField(max_length=255, verbose_name='action')
-    nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
     frequency = models.CharField(choices=period, default='every_day', verbose_name="Periodicity")
     reward = models.CharField(max_length=255, verbose_name='reward', ** NULLABLE)
@@ -49,6 +49,13 @@ class Feeling(models.Model):
         # Checking for simultaneous filling of the reward and related_habit fields
         if self.reward and self.related_habit:
             raise ValidationError(_('You cannot specify a reward and an associated habit at the same time.'))
+
+        # Checking that an associated habit has the sign of a pleasant habit
+        if self.related_habit and not self.related_habit.nice_feeling:
+            raise ValidationError({
+                'related_habit': _(
+                    'Associated habits can only be those with the characteristic of a pleasant habit.')
+            })
 
     def save(self, *args, **kwargs):
         self.clean()
