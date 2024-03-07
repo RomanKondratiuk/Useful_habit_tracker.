@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from config import settings
 
@@ -27,7 +28,7 @@ class Feeling(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
     place = models.CharField(max_length=255, verbose_name='place of action')
-    action_datetime = models.DateTimeField(verbose_name='data and time of action')
+    action_time = models.TimeField(verbose_name='time of action', default=timezone.now())
     action = models.CharField(max_length=255, verbose_name='action')
     nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
