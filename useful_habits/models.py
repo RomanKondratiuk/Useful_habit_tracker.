@@ -1,6 +1,10 @@
 from django.utils import timezone
-from django.db import models
 from config import settings
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxValueValidator
+from datetime import timedelta
 
 NULLABLE = {'null': True, 'blank': True}
 
@@ -34,11 +38,21 @@ class Feeling(models.Model):
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
     frequency = models.CharField(choices=period, default='every_day', verbose_name="Periodicity")
     reward = models.CharField(max_length=255, verbose_name='reward', ** NULLABLE)
-    time_to_complete = models.DurationField(verbose_name='time to complete')
+    time_to_complete = models.DurationField(verbose_name='time to complete',
+                                            validators=[MaxValueValidator(timedelta(seconds=120))])
     is_public = models.BooleanField(default=True, verbose_name='sign of publicity')
 
     def __str__(self):
         return f"{self.action}"
+
+    def clean(self):
+        # Checking for simultaneous filling of the reward and related_habit fields
+        if self.reward and self.related_habit:
+            raise ValidationError(_('You cannot specify a reward and an associated habit at the same time.'))
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(Feeling, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'feeling'
