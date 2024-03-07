@@ -37,7 +37,7 @@ class Feeling(models.Model):
     action = models.CharField(max_length=255, verbose_name='action')
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
     frequency = models.CharField(choices=period, default='every_day', verbose_name="Periodicity")
-    reward = models.CharField(max_length=255, verbose_name='reward', ** NULLABLE)
+    reward = models.CharField(max_length=255, verbose_name='reward', **NULLABLE)
     time_to_complete = models.DurationField(verbose_name='time to complete',
                                             validators=[MaxValueValidator(timedelta(seconds=120))])
     is_public = models.BooleanField(default=True, verbose_name='sign of publicity')
@@ -57,6 +57,13 @@ class Feeling(models.Model):
                     'Associated habits can only be those with the characteristic of a pleasant habit.')
             })
 
+        # Checking that enjoyable habit cannot have a reward or associated habit.
+        if Habit.nice_feeling and not (self.reward or self.related_habit):
+            raise ValidationError({
+                'nice_feeling': _(
+                    'An enjoyable habit cannot have a reward or an associated habit.')
+            })
+
     def save(self, *args, **kwargs):
         self.clean()
         super(Feeling, self).save(*args, **kwargs)
@@ -64,5 +71,3 @@ class Feeling(models.Model):
     class Meta:
         verbose_name = 'feeling'
         verbose_name_plural = 'feelings'
-
-
