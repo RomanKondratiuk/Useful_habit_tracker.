@@ -14,6 +14,8 @@ class Habit(models.Model):
     action = models.CharField(max_length=255, verbose_name='action')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
     nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
+    periodicity = models.IntegerField(default=7, verbose_name='frequency of habit execution')
+    last_completed = models.DateField(verbose_name='last due date', **NULLABLE)
 
     def __str__(self):
         return f"{self.action}"
