@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
 from useful_habits.models import Habit, Feeling
+from useful_habits.paginators import HabitPaginator
 from useful_habits.serializer import HabitSerializer, FeelingSerializer
 
 
@@ -18,6 +19,7 @@ class HabitListApiView(generics.ListAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [AllowAny]
+    pagination_class = HabitPaginator
 
 
 class HabitRetrieveApiView(generics.RetrieveAPIView):
