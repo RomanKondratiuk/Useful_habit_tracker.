@@ -6,9 +6,6 @@ NULLABLE = {'null': True, 'blank': True}
 
 class User(AbstractUser):
     """ This is a users model"""
-    first_name = models.CharField(max_length=50, verbose_name='first_name')
-    last_name = models.CharField(max_length=50, verbose_name='last_name')
-    password = models.IntegerField(verbose_name='password')
     phone = models.IntegerField(verbose_name='phone_number', **NULLABLE)
     city = models.TextField(max_length=50, verbose_name='city', **NULLABLE)
     avatar = models.ImageField(upload_to='avatars/', verbose_name='avatar', **NULLABLE)
