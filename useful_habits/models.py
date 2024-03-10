@@ -12,7 +12,7 @@ NULLABLE = {'null': True, 'blank': True}
 class Habit(models.Model):
     """ the model for useful habit """
     action = models.CharField(max_length=255, verbose_name='action')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='owner', **NULLABLE)
     nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
     periodicity = models.IntegerField(default=7, verbose_name='frequency of habit execution')
     last_completed = models.DateField(verbose_name='last due date', **NULLABLE)
