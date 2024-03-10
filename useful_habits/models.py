@@ -36,7 +36,7 @@ class Feeling(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
     place = models.CharField(max_length=255, verbose_name='place of action')
-    action_time = models.TimeField(verbose_name='time of action', default=timezone.now())
+    action_time = models.TimeField(verbose_name='time of action', default=timezone.now)
     action = models.CharField(max_length=255, verbose_name='action')
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
     frequency = models.CharField(choices=period, default='every_day', verbose_name="Periodicity")
