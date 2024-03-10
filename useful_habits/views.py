@@ -22,6 +22,10 @@ class HabitListApiView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     pagination_class = HabitPaginator
 
+    def get_queryset(self):
+        user = self.request.user
+        return Habit.objects.filter(owner=user)
+
 
 class HabitRetrieveApiView(generics.RetrieveAPIView):
     """ reading of  one habit """
@@ -42,7 +46,6 @@ class HabitDestroyAPIView(generics.DestroyAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsOwner]
-
 
 
 class FeelingCreateApiView(generics.CreateAPIView):
@@ -78,4 +81,3 @@ class FeelingDestroyAPIView(generics.DestroyAPIView):
     serializer_class = FeelingSerializer
     queryset = Feeling.objects.all()
     permission_classes = [IsOwner]
-
