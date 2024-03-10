@@ -8,6 +8,15 @@ from useful_habits.permissions import IsOwner
 from useful_habits.serializer import HabitSerializer, FeelingSerializer
 
 
+class PublicHabitListApiView(generics.ListAPIView):
+    """ list of public habits """
+    serializer_class = HabitSerializer
+    pagination_class = HabitPaginator
+
+    def get_queryset(self):
+        return Habit.objects.filter(is_public=True)
+
+
 class HabitCreateApiView(generics.CreateAPIView):
     """ creating a habit """
     serializer_class = HabitSerializer

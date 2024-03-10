@@ -16,6 +16,7 @@ class Habit(models.Model):
     nice_feeling = models.BooleanField(default=False, verbose_name='a sign of a pleasant feeling')
     periodicity = models.IntegerField(default=7, verbose_name='frequency of habit execution')
     last_completed = models.DateField(verbose_name='last due date', **NULLABLE)
+    is_public = models.BooleanField(default=True, verbose_name="public habits")
 
     def __str__(self):
         return f"{self.action}"
@@ -42,8 +43,6 @@ class Feeling(models.Model):
     reward = models.CharField(max_length=255, verbose_name='reward', **NULLABLE)
     time_to_complete = models.DurationField(verbose_name='time to complete',
                                             validators=[MaxValueValidator(timedelta(seconds=120))])
-    is_public = models.BooleanField(default=True, verbose_name='sign of publicity')
-
     def __str__(self):
         return f"{self.action}"
 
@@ -73,3 +72,7 @@ class Feeling(models.Model):
     class Meta:
         verbose_name = 'feeling'
         verbose_name_plural = 'feelings'
+
+
+# class PublicHabits(models.Model):
+
