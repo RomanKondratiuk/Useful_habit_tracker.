@@ -1,4 +1,3 @@
-from django.utils import timezone
 from config import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -36,13 +35,13 @@ class Feeling(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='user', **NULLABLE)
     place = models.CharField(max_length=255, verbose_name='place of action')
-    action_time = models.TimeField(verbose_name='time of action', default=timezone.now)
     action = models.CharField(max_length=255, verbose_name='action')
     related_habit = models.ForeignKey(Habit, on_delete=models.CASCADE, verbose_name='related habit', **NULLABLE)
     frequency = models.CharField(choices=period, default='every_day', verbose_name="Periodicity")
     reward = models.CharField(max_length=255, verbose_name='reward', **NULLABLE)
     time_to_complete = models.DurationField(verbose_name='time to complete',
                                             validators=[MaxValueValidator(timedelta(seconds=120))])
+
     def __str__(self):
         return f"{self.action}"
 
@@ -72,7 +71,4 @@ class Feeling(models.Model):
     class Meta:
         verbose_name = 'feeling'
         verbose_name_plural = 'feelings'
-
-
-# class PublicHabits(models.Model):
 
