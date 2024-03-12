@@ -5,6 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator
 from datetime import timedelta
 
+from useful_habits.valiators import validate_reward_and_habit, validate_pleasant_habit, \
+    validate_enjoyable_habit_without_reward_or_association
+
 NULLABLE = {'null': True, 'blank': True}
 
 
@@ -47,22 +50,13 @@ class Feeling(models.Model):
 
     def clean(self):
         # Checking for simultaneous filling of the reward and related_habit fields
-        if self.reward and self.related_habit:
-            raise ValidationError(_('You cannot specify a reward and an associated habit at the same time.'))
+        validate_reward_and_habit(self.reward, self.related_habit)
 
         # Checking that an associated habit has the sign of a pleasant habit
-        if self.related_habit and not self.related_habit.nice_feeling:
-            raise ValidationError({
-                'related_habit': _(
-                    'Associated habits can only be those with the characteristic of a pleasant habit.')
-            })
+        validate_pleasant_habit(self.related_habit, self.related_habit.nice_feeling if self.related_habit else False)
 
         # Checking that enjoyable habit cannot have a reward or associated habit.
-        if Habit.nice_feeling and not (self.reward or self.related_habit):
-            raise ValidationError({
-                'nice_feeling': _(
-                    'An enjoyable habit cannot have a reward or an associated habit.')
-            })
+        validate_enjoyable_habit_without_reward_or_association(self.nice_feeling, self.reward, self.related_habit)
 
     def save(self, *args, **kwargs):
         self.clean()
