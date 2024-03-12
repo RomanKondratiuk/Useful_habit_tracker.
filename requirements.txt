@@ -26,4 +26,10 @@ vine==5.1.0
 wcwidth==0.2.13
 django-cors-headers==4.3.1
 requests==2.31.0
+drf-yasg==1.21.7
+inflection==0.5.1
+packaging==24.0
+pyyaml==6.0.1
+uritemplate==4.1.1
+
 
