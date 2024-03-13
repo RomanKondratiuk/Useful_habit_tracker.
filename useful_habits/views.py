@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
-
+from rest_framework.permissions import IsAuthenticated
 from useful_habits.models import Habit, Feeling
 from useful_habits.paginators import HabitPaginator
 from useful_habits.permissions import IsOwner
