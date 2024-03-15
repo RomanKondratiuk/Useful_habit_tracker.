@@ -19,7 +19,7 @@ Make sure you have installed:
 Clone the repository and activate the virtual environment:
 
 git clone https://github.com/RomanKondratiuk/Useful_habit_tracker.git
-cd useful_habit_tracker
+cd Useful_habit_tracker
 virtualenv env
 source env/bin/activate
 
