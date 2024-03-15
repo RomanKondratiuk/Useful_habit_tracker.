@@ -66,6 +66,5 @@ Built With
 
 Django & DRF for the backend.
 Celery for handling delayed tasks.
-Docker for containerization and deployment.
 Telegram Bot API for reminders.
 
