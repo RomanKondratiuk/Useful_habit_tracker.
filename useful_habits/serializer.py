@@ -14,7 +14,8 @@ class FeelingSerializer(serializers.ModelSerializer):
     """ serializer for Feeling model"""
 
     # changing time and date format for field 'action_time' in Feeling model
-    action_datatime = serializers.DateTimeField(format="%d-%m-%Y %H:%M", read_only=True)
+    action_datatime = serializers.DateTimeField(
+        format="%d-%m-%Y %H:%M", read_only=True)
 
     class Meta:
         model = Feeling

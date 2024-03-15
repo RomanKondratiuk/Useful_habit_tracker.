@@ -8,7 +8,8 @@ class HabitTestCase(APITestCase):
 
     def setUp(self) -> None:
         # creating user
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.user = User.objects.create_user(
+            username='testuser', password='testpassword')
 
     def test_create_habit(self):
         """ Habit creating testing """
@@ -64,8 +65,9 @@ class HabitTestCase(APITestCase):
         self.assertEqual(
             response.json(),
             {'count': 1, 'next': None, 'previous': None,
-             'results': [{'id': 2, 'action': 'test habit-list', 'nice_feeling': True,
-                         'periodicity': 7, 'last_completed': None, 'is_public': True, 'owner': 2}]}
+             'results': [{'id': 2, 'action': 'test habit-list',
+                          'nice_feeling': True,
+                         'periodicity': 7, 'last_completed': None,
+                          'is_public': True, 'owner': 2}]}
 
         )
-

@@ -3,7 +3,8 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from datetime import timedelta
 
-from useful_habits.valiators import validate_reward_and_habit, validate_pleasant_habit, \
+from useful_habits.valiators import validate_reward_and_habit,\
+    validate_pleasant_habit, \
     validate_enjoyable_habit_without_reward_or_association
 
 NULLABLE = {'null': True, 'blank': True}
@@ -63,4 +64,3 @@ class Feeling(models.Model):
     class Meta:
         verbose_name = 'feeling'
         verbose_name_plural = 'feelings'
-
