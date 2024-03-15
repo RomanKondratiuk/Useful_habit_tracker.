@@ -18,53 +18,49 @@ Make sure you have installed:
 
 Clone the repository and activate the virtual environment:
 
-```bash
-git clone https://github.com/RomanKondratiuk/Useful_habit_tracker..git
+git clone https://github.com/RomanKondratiuk/Useful_habit_tracker.git
 cd useful_habit_tracker
 virtualenv env
 source env/bin/activate
 
-
-#### Install the dependencies:
+Install the dependencies:
 
 pip install -r requirements.txt
 
+### Configuration
 
-##### Configuration
-Copy the .env.sample file to a new .env file and configure the environment variables:
+Copy the `.env.sample` file to a new `.env` file and configure the environment variables:
 
 cp .env.sample .env
 
+### Running
 
-###### Running
 Start the local server:
 
 python manage.py runserver
 
-
-####### Usage
+## Usage
 
 After starting the server, you can use the API according to the documentation of endpoints. The application provides the following main features:
 
-User registration and authentication.
-Creating, viewing, editing, and deleting habits.
-Viewing a list of public habits.
-Setting up reminders through integration with Telegram.
+- User registration and authentication.
+- Creating, viewing, editing, and deleting habits.
+- Viewing a list of public habits.
+- Setting up reminders through integration with Telegram.
 
-######## Testing
+## Testing
 
 Run tests to ensure the application functions correctly:
 
 python manage.py test
 
-
-Deployment
+## Deployment
 
 Follow the standard procedure for deploying Django projects for production deployment.
 
-Built With
+## Built With
 
-Django & DRF for the backend.
-Celery for handling delayed tasks.
-Telegram Bot API for reminders.
-
+- Django & DRF for the backend.
+- Celery for handling delayed tasks.
+- Docker for containerization and deployment.
+- Telegram Bot API for reminders.
