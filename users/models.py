@@ -19,8 +19,7 @@ class User(AbstractUser):
 
     # Changing authorization from username to e-mail
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name',
-                       'last_name', 'telegram_chat_id']
+    REQUIRED_FIELDS = ['username', 'last_name', 'telegram_chat_id']
 
     def __str__(self):
         return self.email
