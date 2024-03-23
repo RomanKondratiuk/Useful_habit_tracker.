@@ -77,3 +77,41 @@ class HabitTestCase(APITestCase):
             response.json(),
             {'count': 0, 'next': None, 'previous': None, 'results': []}
         )
+
+    def test_update_habit(self):
+        """ test for updating test """
+        self.client.force_authenticate(user=self.user)
+
+        habit = Habit.objects.create(
+            owner=self.user,
+            place='home',
+            perform_time="10:00:00",
+            action="initial action",
+            is_pleasant=False,
+            frequency="every_day",
+            reward="initial reward",
+            time_to_complete="00:02:00",
+            is_public=True,
+        )
+
+        updated_data = {
+            "action": "updated action",
+            "reward": "updated reward",
+        }
+
+        response = self.client.put(
+            f'/habit/update/{habit.id}/',
+            data=updated_data)
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK)
+
+        habit.refresh_from_db()
+        self.assertEqual(
+            habit.action,
+            "updated action")
+
+        self.assertEqual(
+            habit.reward,
+            "updated reward")
