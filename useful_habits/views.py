@@ -54,37 +54,3 @@ class HabitDestroyAPIView(generics.DestroyAPIView):
     queryset = Habit.objects.all()
     permission_classes = [IsOwner]
 
-
-# class FeelingCreateApiView(generics.CreateAPIView):
-#     """ creating a feeling """
-#     serializer_class = FeelingSerializer
-#     queryset = Feeling.objects.all()
-#     permission_classes = [IsAuthenticated]
-#
-#
-# class FeelingListApiView(generics.ListAPIView):
-#     """ list of feelings """
-#     serializer_class = FeelingSerializer
-#     queryset = Feeling.objects.all()
-#     permission_classes = [IsAuthenticated]
-#
-#
-# class FeelingRetrieveApiView(generics.RetrieveAPIView):
-#     """ reading of  one feeling """
-#     serializer_class = FeelingSerializer
-#     queryset = Feeling.objects.all()
-#     permission_classes = [IsOwner]
-#
-#
-# class FeelingUpdateApiView(generics.UpdateAPIView):
-#     """ updating a feeling """
-#     serializer_class = FeelingSerializer
-#     queryset = Feeling.objects.all()
-#     permission_classes = [IsOwner]
-#
-#
-# class FeelingDestroyAPIView(generics.DestroyAPIView):
-#     """ deleting of feeling """
-#     serializer_class = FeelingSerializer
-#     queryset = Feeling.objects.all()
-#     permission_classes = [IsOwner]
