@@ -1,9 +1,9 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from useful_habits.models import Habit, Feeling
+from useful_habits.models import Habit
 from useful_habits.paginators import HabitPaginator
 from useful_habits.permissions import IsOwner
-from useful_habits.serializer import HabitSerializer, FeelingSerializer
+from useful_habits.serializer import HabitSerializer
 
 
 class PublicHabitListApiView(generics.ListAPIView):
@@ -55,36 +55,36 @@ class HabitDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [IsOwner]
 
 
-class FeelingCreateApiView(generics.CreateAPIView):
-    """ creating a feeling """
-    serializer_class = FeelingSerializer
-    queryset = Feeling.objects.all()
-    permission_classes = [IsAuthenticated]
-
-
-class FeelingListApiView(generics.ListAPIView):
-    """ list of feelings """
-    serializer_class = FeelingSerializer
-    queryset = Feeling.objects.all()
-    permission_classes = [IsAuthenticated]
-
-
-class FeelingRetrieveApiView(generics.RetrieveAPIView):
-    """ reading of  one feeling """
-    serializer_class = FeelingSerializer
-    queryset = Feeling.objects.all()
-    permission_classes = [IsOwner]
-
-
-class FeelingUpdateApiView(generics.UpdateAPIView):
-    """ updating a feeling """
-    serializer_class = FeelingSerializer
-    queryset = Feeling.objects.all()
-    permission_classes = [IsOwner]
-
-
-class FeelingDestroyAPIView(generics.DestroyAPIView):
-    """ deleting of feeling """
-    serializer_class = FeelingSerializer
-    queryset = Feeling.objects.all()
-    permission_classes = [IsOwner]
+# class FeelingCreateApiView(generics.CreateAPIView):
+#     """ creating a feeling """
+#     serializer_class = FeelingSerializer
+#     queryset = Feeling.objects.all()
+#     permission_classes = [IsAuthenticated]
+#
+#
+# class FeelingListApiView(generics.ListAPIView):
+#     """ list of feelings """
+#     serializer_class = FeelingSerializer
+#     queryset = Feeling.objects.all()
+#     permission_classes = [IsAuthenticated]
+#
+#
+# class FeelingRetrieveApiView(generics.RetrieveAPIView):
+#     """ reading of  one feeling """
+#     serializer_class = FeelingSerializer
+#     queryset = Feeling.objects.all()
+#     permission_classes = [IsOwner]
+#
+#
+# class FeelingUpdateApiView(generics.UpdateAPIView):
+#     """ updating a feeling """
+#     serializer_class = FeelingSerializer
+#     queryset = Feeling.objects.all()
+#     permission_classes = [IsOwner]
+#
+#
+# class FeelingDestroyAPIView(generics.DestroyAPIView):
+#     """ deleting of feeling """
+#     serializer_class = FeelingSerializer
+#     queryset = Feeling.objects.all()
+#     permission_classes = [IsOwner]
