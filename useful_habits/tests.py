@@ -115,3 +115,32 @@ class HabitTestCase(APITestCase):
         self.assertEqual(
             habit.reward,
             "updated reward")
+
+    def test_delete_habit(self):
+        """ test for deleting a habit """
+        self.client.force_authenticate(user=self.user)
+
+        habit = Habit.objects.create(
+            owner=self.user,
+            place='home',
+            perform_time="10:00:00",
+            action="test action",
+            is_pleasant=False,
+            frequency="every_day",
+            reward="rest",
+            time_to_complete="00:02:00",
+            is_public=True,
+        )
+
+        response = self.client.delete(
+            f'/habit/delete/{habit.id}/'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT)
+
+        self.assertFalse(
+            Habit.objects.filter(
+                id=habit.id).exists()
+        )
