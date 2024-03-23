@@ -58,3 +58,22 @@ class HabitTestCase(APITestCase):
         self.assertTrue(
             Habit.objects.all().exists()
         )
+
+    def test_list_habit(self):
+        """ testing the list of habits """
+
+        # checking that the habit is created only for authenticated users
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.get(
+            '/habit/',
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+        self.assertEqual(
+            response.json(),
+            {'count': 0, 'next': None, 'previous': None, 'results': []}
+        )
