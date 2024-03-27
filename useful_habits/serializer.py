@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import Habit
+from useful_habits.valiators import \
+    validate_linked_habit, \
+    validate_reward_for_useful_habit
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -9,14 +12,11 @@ class HabitSerializer(serializers.ModelSerializer):
         model = Habit
         fields = '__all__'
 
+    def validate(self, data):
+        # Create a temporary instance of the Habit model
+        habit = Habit(**data)
 
-# class FeelingSerializer(serializers.ModelSerializer):
-#     """ serializer for Feeling model"""
-#
-#     # changing time and date format for field 'action_time' in Feeling model
-#     action_datatime = serializers.DateTimeField(
-#         format="%d-%m-%Y %H:%M", read_only=True)
-#
-#     class Meta:
-#         model = Feeling
-#         fields = '__all__'
+        # Calling validators
+        validate_linked_habit(habit)
+        validate_reward_for_useful_habit(habit)
+        return data
