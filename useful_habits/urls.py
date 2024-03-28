@@ -1,5 +1,4 @@
 from django.urls import path
-
 from useful_habits.apps import UsefulHabitsConfig
 from useful_habits.views import HabitCreateApiView, HabitListApiView, \
     HabitRetrieveApiView, HabitUpdateApiView, \
