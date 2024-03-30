@@ -1,5 +1,4 @@
 from users.apps import UsersConfig
-from rest_framework.routers import DefaultRouter
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, \
     TokenRefreshView
@@ -7,9 +6,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, \
 from users.views import UserCreateAPIView, UserListAPIView, UserRetrieveAPIView, UserUpdateAPIView, UserDeleteAPIView
 
 app_name = UsersConfig.name
-
-# router = DefaultRouter()
-# router.register(r'login', UserViewSet, basename='user')
 
 urlpatterns = [
                   path('token/', TokenObtainPairView.as_view(),
