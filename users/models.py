@@ -16,7 +16,7 @@ class User(AbstractUser):
                                **NULLABLE)
     telegram_chat_id = models.CharField(max_length=100,
                                         verbose_name='Telegram chat ID',
-                                        blank=True)
+                                        ** NULLABLE)
 
     # Changing authorization from username to e-mail
     USERNAME_FIELD = "email"
