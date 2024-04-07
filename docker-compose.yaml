@@ -1,11 +1,16 @@
 version: '3.8'
 
 services:
+
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
   db:
     image: postgres
     environment:
       POSTGRES_PASSWORD: mysecretpassword
-      PG_DATA: /var/vib/postgresql/data/pgdata
+#      PG_DATA: /var/vib/postgresql/data/pgdata
     volumes:
       - pg_data:/var/vib/postgresql/data/pgdata
     ports:
@@ -18,9 +23,12 @@ services:
 
   app:
     build: .
-    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+    tty: true
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
       - '8000:8000'
+    volumes:
+      - .:/code
     depends_on:
       db:
         condition: service_healthy
