@@ -44,7 +44,7 @@ services:
   celery_beat:
     build: .
     tty: true
-    command: celery -A config beat -l INFO -S django
+    command: bash -c "sleep 5 && celery -A config beat -l INFO -S django"
     depends_on:
       - redis
       - app
